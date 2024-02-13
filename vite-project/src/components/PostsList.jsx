@@ -22,14 +22,14 @@ export default function PostsList() {
   }
   return (
     <>
-      {modalIsVisible ? (
+      {modalIsVisible && (
         <Modal onClose={hideModalHandler}>
           <NewPost
             onTextChange={textChangeHandler}
             onAuthorChange={authorChangeHandler}
           />
         </Modal>
-      ) : null}
+      )}
 
       <ul className={styles.posts}>
         <Post author={enteredAuthor} body={enteredtext} />

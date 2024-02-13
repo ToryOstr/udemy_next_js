@@ -4,14 +4,9 @@ import NewPost from "./NewPost";
 import Modal from "./Modal";
 import styles from "./PostsList.module.css";
 
-export default function PostsList() {
+export default function PostsList({isPosting, onStopPosting}) {
   const [enteredtext, setEnteredText] = useState("");
   const [enteredAuthor, setEnteredAuthor] = useState("");
-  const [modalIsVisible, setModalIsVisible] = useState(true);
-
-  function hideModalHandler() {
-    setModalIsVisible(false);
-  }
 
   function textChangeHandler() {
     setEnteredText(event.target.value);
@@ -22,8 +17,8 @@ export default function PostsList() {
   }
   return (
     <>
-      {modalIsVisible && (
-        <Modal onClose={hideModalHandler}>
+      {isPosting && (
+        <Modal onClose={onStopPosting}>
           <NewPost
             onTextChange={textChangeHandler}
             onAuthorChange={authorChangeHandler}

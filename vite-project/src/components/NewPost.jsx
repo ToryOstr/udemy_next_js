@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styles from "./NewPost.module.css";
 
-function NewPost({onCancel}) {
+function NewPost({onCancel, onAddPost}) {
     const [enteredtext, setEnteredText] = useState("");
   const [enteredAuthor, setEnteredAuthor] = useState("");
 
@@ -19,7 +19,7 @@ function NewPost({onCancel}) {
       text: enteredtext,
       author: enteredAuthor
     };
-    console.log(postData);
+    onAddPost(postData);
     onCancel();
   }
 

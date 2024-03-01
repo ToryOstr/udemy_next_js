@@ -7,12 +7,15 @@ import { useState, useEffect } from "react";
 export default function PostsList({isPosting, onStopPosting}) {
 
   const [posts, setPosts] = useState([]);
+  const [isLoadedData, setIsLoadedData] = useState(false);
 
   useEffect(() => {
     async function fetchPosts() {
+      setIsLoadedData(true);
       const response = await fetch("http://localhost:8080/posts");
       const resData = await response.json();
       setPosts(resData.posts);
+      setIsLoadedData(false);
     }
     fetchPosts();
   }, []);
@@ -32,19 +35,24 @@ export default function PostsList({isPosting, onStopPosting}) {
     <>
       {isPosting && (
         <Modal onClose={onStopPosting}>
-          <NewPost
-            onCancel={onStopPosting}
-            onAddPost={addPostHandler}
-          />
+          <NewPost onCancel={onStopPosting} onAddPost={addPostHandler} />
         </Modal>
       )}
-      {posts.length > 0 && (<ul className={styles.posts}>
-        {posts.map((p, index) => <Post key={index} author={p.author} body={p.text} />
-        )}
-      </ul>)}
-      {posts.length === 0 && (
-        <div style={{textAlign: "center", color: "white"}}>
+      {!isLoadedData && posts.length > 0 && (
+        <ul className={styles.posts}>
+          {posts.map((p, index) => (
+            <Post key={index} author={p.author} body={p.text} />
+          ))}
+        </ul>
+      )}
+      {!isLoadedData && posts.length === 0 && (
+        <div style={{ textAlign: "center", color: "white" }}>
           <h2>There are no posts yet.</h2>
+        </div>
+      )}
+      {isLoadedData && (
+        <div style={{ textAlign: "center", color: "white" }}>
+          <h2>Loading...</h2>
         </div>
       )}
     </>

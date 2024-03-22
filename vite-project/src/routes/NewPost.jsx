@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-
-import styles from "./NewPost.module.css";
 import Modal from "../components/Modal";
 
-export default function NewPost({onAddPost }) {
+import styles from "./NewPost.module.css";
+
+export default function NewPost({ onAddPost }) {
   const [enteredtext, setEnteredText] = useState("");
   const [enteredAuthor, setEnteredAuthor] = useState("");
 
@@ -23,7 +23,6 @@ export default function NewPost({onAddPost }) {
       author: enteredAuthor,
     };
     onAddPost(postData);
-    onCancel();
   }
 
   return (
@@ -43,7 +42,7 @@ export default function NewPost({onAddPost }) {
           />
         </p>
         <p className={styles.actions}>
-          <Link to='..' type="button" >
+          <Link to=".." type="button">
             Cancel
           </Link>
           <button>Submit</button>

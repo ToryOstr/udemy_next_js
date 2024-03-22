@@ -3,17 +3,14 @@ import styles from "./PostsList.module.css";
 import { useState, useEffect } from "react";
 
 export default function PostsList() {
-
   const [posts, setPosts] = useState([]);
   const [isLoadedData, setIsLoadedData] = useState(false);
 
   useEffect(() => {
     async function fetchPosts() {
       setIsLoadedData(true);
-      
       const response = await fetch("http://localhost:8080/posts");
       const resData = await response.json();
-
       setPosts(resData.posts);
       setIsLoadedData(false);
     }

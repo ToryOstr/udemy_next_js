@@ -14,6 +14,7 @@ const router = createBrowserRouter([
       {
         paht: "/",
         element: <Posts />,
+        // loader: postsLoader,
         children: [{path: "/create-post", element: <NewPost />}],
       },
     ],
